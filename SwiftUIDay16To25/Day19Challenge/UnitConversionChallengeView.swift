@@ -15,13 +15,10 @@ struct UnitConversionChallengeView: View {
     
     private var outputValue: String {
         let curr = Measurement(value: value, unit: selectedInputUnit)
-        let meters = curr.converted(to: .meters)
-        
-        return meters.converted(to: selectedOutputUnit).value.formatted(.number)
+        return curr.converted(to: selectedOutputUnit).value.formatted(.number)
     }
     
     private let units: [UnitLength] = [.meters, .kilometers, .feet, .yards, .miles]
-    //    private let units = ["meters", "kilometers", "feet", "yard", "miles"]
     
     var body: some View {
         NavigationView {
