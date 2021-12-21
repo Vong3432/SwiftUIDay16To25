@@ -109,7 +109,7 @@ struct Day20ButtonModifier: ViewModifier {
         content
             .padding()
             .background(Color.blue)
-            .cornerRadius(18)
+            .clipShape(Capsule())
     }
 }
 
