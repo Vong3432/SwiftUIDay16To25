@@ -10,9 +10,13 @@ import SwiftUI
 struct Day21LearningMaterialsView: View {
     
     @State private var showingScore = false
+    @State private var showOver = false
+    
     @State private var scoreTitle = ""
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
+    @State private var score: Int = 0
+    @State private var count: Int = 1
     
     private let gradient = LinearGradient(
         gradient: Gradient(colors: [.blue, .black]),
@@ -65,7 +69,7 @@ struct Day21LearningMaterialsView: View {
                 Spacer()
                 Spacer()
                 
-                Text("Score: ???")
+                Text("Score: \(score)")
                     .foregroundColor(.white)
                     .font(.title.bold())
                 
@@ -75,28 +79,48 @@ struct Day21LearningMaterialsView: View {
         }
         .alert(scoreTitle, isPresented: $showingScore) {
             Button("Continue") {
-                resetQuestion()
+                if count == 8 {
+                    showOver = true
+                } else {
+                    resetQuestion()
+                }
             }
         } message: {
-            Text("Your score is ???")
+            Text("Your score is \(score)")
                 .font(.title.bold())
-            
+        }
+        .alert("Round end", isPresented: $showOver) {
+            Button("Restart the game") {
+                resetGame()
+            }
         }
     }
     
     private func flagTapped(_ number: Int) {
         if number == correctAnswer {
             scoreTitle = "Correct"
+            score += 1
         } else {
-            scoreTitle = "Wrong"
+            scoreTitle = "Wrong! Tha's the flag of \(countries[correctAnswer])"
+            
+            if score > 1 {
+                score -= 1
+            }
         }
         
         showingScore = true
     }
     
     private func resetQuestion() {
+        count += 1
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+    
+    private func resetGame() {
+        count = 0
+        resetQuestion()
+        score = 0
     }
 }
 
