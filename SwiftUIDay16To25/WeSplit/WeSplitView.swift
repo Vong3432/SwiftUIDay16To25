@@ -68,6 +68,7 @@ struct WeSplitView: View {
                 
                 Section {
                     Text(totalAmount, format: .currency(code: Locale.current.currencyCode ?? "MYR"))
+                        .foregroundColor(tipPercentage == 0 ? .red : Color.primary)
                 } header: {
                     Text("Total charge (with tip)")
                 }
