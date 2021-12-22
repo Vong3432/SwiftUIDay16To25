@@ -13,7 +13,8 @@ struct ContentView: View {
 //        WeSplitView()
 //        UnitConversionChallengeView()
 //        Day20LearningMaterialView()
-        Day21LearningMaterialsView()
+//        Day21LearningMaterialsView()
+        Day25ChallengeView()
     }
 }
 
